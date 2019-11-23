@@ -36,10 +36,10 @@ def adjust_car(direction):
         LEDs_weighted2 = cf.LEDs_weighted[cf.LEDs_map[opposite]]
         center_led = int((N-1)/2)
         left_max = np.max(LEDs_weighted1[:center_led])
-        right_max = np.max(LEDs_weighted1[center_led:])
+        right_max = np.max(LEDs_weighted1[center_led+1:])
         minus1 = np.sign(left_max - right_max)
         left_max = np.max(LEDs_weighted2[:center_led])
-        right_max = np.max(LEDs_weighted2[center_led:])
+        right_max = np.max(LEDs_weighted2[center_led+1:])
         minus2 = np.sign(left_max- right_max)
         print(minus1, minus2)
         if minus1 == 0 and minus2==0:
@@ -81,7 +81,7 @@ def go_with_line(values):
         check_led = LEDs_MODE_direction[center_led]
         total_weight = np.sum(LEDs_MODE_direction)
         left_max = np.max(LEDs_weighted_direction[:center_led])
-        right_max = np.max(LEDs_weighted_direction[center_led:])
+        right_max = np.max(LEDs_weighted_direction[center_led+1:])
         minus = left_max - right_max
         if minus == 0 and check_led and total_weight!=0 and total_weight!=N:
             cf.rotate = False
