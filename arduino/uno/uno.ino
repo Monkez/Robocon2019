@@ -1,11 +1,17 @@
 #include <string.h>
+#include <Servo.h>
+
 #define MAX_SPEED 255 //từ 0-255
 //Khai báo động cơ
 int M1[2] = {5, 4};
+int M2[2] =  {6, 7};
 int M3[2] =  {11, 10};
-int M2[2] =  {9, 8};
 int M4[2] =  {3, 2};
+int M5[2] = {8, 9};
+int M6[2] = {12, 13};
 int idle[4] = {0, 0, 0, 0};
+byte servo_pins[4] = {A0, A1, A2, A3};
+Servo servo[4];
 void setup() {
   pinMode(M1[0], OUTPUT);
   pinMode(M1[1], OUTPUT);
@@ -15,13 +21,21 @@ void setup() {
   pinMode(M3[1], OUTPUT);
   pinMode(M4[0], OUTPUT);
   pinMode(M4[1], OUTPUT);
+  pinMode(M5[0], OUTPUT);
+  pinMode(M5[1], OUTPUT);
+  pinMode(M6[0], OUTPUT);
+  pinMode(M6[1], OUTPUT);
+  for (int i=0;i<4;i++){
+    servo[i].attach(servo_pins[i]);
+    }
+ 
   move(idle);
-  Serial.begin(115200);
+  Serial.begin(250000);
 }
 void loop() {
   if (Serial.available()){ //Nếu có tín hiệu từ Pi
     String message = Serial.readStringUntil('/');
-    char *buf = message.c_str();
+    const char *buf = message.c_str();
     char *cmd = strtok(buf, " ");
     if (strcmp(cmd, "MOV")==0){
       int speeds[4];
@@ -31,7 +45,47 @@ void loop() {
         }
       move(speeds);
       }
+   if (strcmp(cmd, "SER")==0){
+      char *stt = strtok(NULL, " ");
+      int ser = atoi(stt);
+      char *angle = strtok(NULL, " ");
+      int ser_angle = atoi(angle);
+      servo[ser].write(180 - ser_angle);
+      delay(15);
+   }
+
+   if (strcmp(cmd, "SHOT")==0){
+      char *stt = strtok(NULL, " ");
+      int speed = atoi(stt);
+      if (speed>0){
+        digitalWrite(M5[0], HIGH);
+        digitalWrite(M5[1], LOW);
+        } else{
+          digitalWrite(M5[0], LOW);
+        digitalWrite(M5[1], LOW);
+          }
+      
+   }
+
+   if (strcmp(cmd, "FHAND")==0){
+      char *stt = strtok(NULL, " ");
+      int speed = atoi(stt);
+      if (speed>0){
+        digitalWrite(M6[0], HIGH);
+        digitalWrite(M6[1], LOW);
+        }
+      if (speed<0){
+        digitalWrite(M6[0], LOW);
+        digitalWrite(M6[1], HIGH);
+        }
+      if (speed==0){
+        digitalWrite(M6[0], LOW);
+        digitalWrite(M6[1], LOW);
+        }
+   }
+   
    if (strcmp(cmd, "WHO")==0){
+      delay(0.2);
       Serial.println("UNO");
       }
   }
