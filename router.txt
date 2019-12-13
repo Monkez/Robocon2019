@@ -1,3 +1,10 @@
+*
+check_ball(7)
+*
+("PASS", 1)
+# Di sang cho tiep theo
+# Tha bong
+B
 ("SER", [3, 170])
 ("SER", [0, 180])
 ("SER", [1, 180])
