@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 import numpy as np
 import cv2
 import serial
@@ -84,7 +85,7 @@ cf.LEDs_weighted = np.zeros_like(cf.LEDs_MODE)
 cf.CENTER_LEDs_MODE = np.zeros(cf.LED_ROWS)
 cf.MAX_LEFT_LEDs = np.zeros(cf.LED_ROWS)
 cf.MAX_RIGHT_LEDs = np.zeros(cf.LED_ROWS)
-cf.LEDs_threshold = np.load("LEDs_threshold.npy")
+cf.LEDs_threshold = np.load("/home/pi/Desktop/Git/Robocon2019/LEDs_threshold.npy")
 
 #CTHTs
 CTHTs = [31, 29, 35, 33, 37]
@@ -559,7 +560,7 @@ cf.mode = 0
 
 def set_6_led():
     mode = 4*cf.color+cf.mode
-    cf.file ='routers/'+cf.colors[cf.color]+str(cf.mode)+'.txt'
+    cf.file ='/home/pi/Desktop/Git/Robocon2019/routers/'+cf.colors[cf.color]+str(cf.mode)+'.txt'
     for i in range(3):
         if mode%2==0:
             GPIO.output(cf.led6[i], False)
