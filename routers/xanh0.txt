@@ -3,6 +3,9 @@
 ("SER", [0, 180])
 ("SER", [1, 180])
 ("SER", [2, 100])
+# TEST
+("LINE", ["UP", "LEFT", 5, 'P'])
+B
 ("GO", ["UP", "TIME", 0.5,])
 ("GO", ["UP", "RIGHT", 2, "P"])
 ("GO", ["TURN_LEFT", "ANGLE", 45], 150)
