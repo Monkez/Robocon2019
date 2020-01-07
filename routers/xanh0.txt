@@ -1,14 +1,24 @@
 ("SET_PID", [0.25, 0.005, 0.085])
 #("SER", [3, cf.close])
-("SER", [0, 180])
-("SER", [1, 180])
-("SER", [2, 100])
+#("SER", [0, 180])
+#("SER", [1, 180])
+#("SER", [2, 100])
 #TEST
 #("TRIGGER", 0)
 #("CHECK_TRIGGER", 1)
 #("DELAY", 1)
 #("SHOT", 0)
 #B
+("SER", [1, 0])
+("DELAY", 2)
+("SER", [0, 0])
+("DELAY", 2)
+("SER", [0, 180])
+("SER", [1, 175])
+B
+("SER", [0, 0])
+("DELAY", 3)
+B
 # GO
 ("SER", [3, cf.open])
 ("GO", ["UP", "TIME", 0.5], 140)
